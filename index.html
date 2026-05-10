@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026年禅城区生源地信用助学贷款</title>
+<!-- 仅新增：云开发SDK 一行 -->
+<script src="https://imgcache.qq.com/qcloud/cloudbase-js-sdk/1.10.3/cloudbase.full.js"></script>
+<style>
+body{max-width:580px;margin:20px auto;padding:0 15px;font-family:"Microsoft YaHei",sans-serif;background:#f6f7f9;}
+h2{text-align:center;color:#1f2937;margin:25px 0;}
+.form-card{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 8px #00000010;}
+.item{margin:18px 0;}
+label{display:block;margin-bottom:6px;font-weight:500;color:#333;}
+.red{color:red;}
+input,select{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:6px;box-sizing:border-box;font-size:15px;}
+.btn{width:100%;background:#1677ff;color:#fff;border:none;padding:13px;border-radius:6px;font-size:16px;margin-top:10px;cursor:pointer;}
+.btn-confirm{background:#28a745;padding:12px 30px;font-size:16px;border-radius:6px;border:none;color:#fff;cursor:pointer;margin-top:10px;}
+.btn-close{background:#dc3545;padding:12px 30px;font-size:16px;border-radius:6px;border:none;color:#fff;cursor:pointer;margin:5px;}
+.btn-restart{background:#17a2b8;padding:12px 30px;font-size:16px;border-radius:6px;border:none;color:#fff;cursor:pointer;margin:5px;}
+.tip{font-size:13px;color:#666;margin-top:4px;}
+.err-tip{font-size:13px;color:red;margin-top:4px;}
+.result-page{display:none;background:#fff;padding:20px;border-radius:8px;margin:20px 0;}
+.result-page h2{margin-bottom:20px;}
+.table-row{display:table-row;}
+.cell-l{display:table-cell;border:1px solid #999;padding:6px 12px;white-space:nowrap;}
+.cell-r{display:table-cell;border:1px solid #999;padding:6px 12px;width:100%;}
+.table-wrap{display:table;width:100%;border-collapse:collapse;}
+.tip-text{font-size:16px;font-weight:bold;color:#0066cc;text-align:center;margin:15px 0;}
+.final-page{display:none;text-align:center;padding:30px 20px;background:#fff;border-radius:8px;margin-top:20px;}
+.final-title{font-size:18px;font-weight:bold;color:#dc3545;margin-bottom:25px;}
+/* 日期弹窗遮罩 */
+.date-overlay{
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  z-index:99;
+}
+/* 日期选择器居中弹窗 */
+.date-picker{position:relative;}
+.date-input{cursor:pointer;background:#fafafa;}
+.date-panel{
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:#fff;
+  border:1px solid #ddd;border-radius:8px;
+  padding:15px;
+  box-sizing:border-box;
+  z-index:100;
+  width:340px;
+  display:none;
+}
+.date-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.date-header button{background:none;border:none;cursor:pointer;font-size:18px;color:#1677ff;padding:5px;}
+.date-weekdays{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12px;color:#999;margin-bottom:5px;}
+.date-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.date-day{
+  padding:8px 0;text-align:center;border-radius:4px;
+  font-size:14px;cursor:pointer;
+}
+.date-day.disabled{
+  background:#f0f0f0;color:#999;cursor:not-allowed;
+}
+.date-day.active{
+  background:#1677ff;color:#fff;
+}
+</style>
+</head>
+<body>
+<h2>2026年禅城区生源地信用助学贷款</h2>
+<div class="form-card" id="formPage">
+  <div class="item">
+    <label>借款学生姓名 <span class="red">*</span></label>
+    <input type="text" id="stuName" placeholder="请输入借款学生姓名">
+  </div>
+  <div class="item">
+    <label>身份证号 <span class="red">*</span></label>
+    <input type="text" id="stuIdCard" placeholder="请输入18位身份证号">
+  </div>
+  <div class="item">
+    <label>手机号 <span class="red">*</span></label>
+    <input type="tel" id="stuPhone" placeholder="请输入11位手机号">
+  </div>
+  <div class="item">
+    <label>户籍（区） <span class="red">*</span></label>
+    <select id="area">
+      <option value="">请选择</option>
+      <option value="禅城区">禅城区</option>
+      <option value="非禅城区（无法申请）">非禅城区（无法申请）</option>
+    </select>
+  </div>
+  <div class="item">
+    <label>户籍（镇/街道） <span class="red">*</span></label>
+    <select id="street">
+      <option value="">请选择</option>
+      <option value="祖庙街道">祖庙街道</option>
+      <option value="石湾镇街道">石湾镇街道</option>
+      <option value="张槎街道">张槎街道</option>
+      <option value="南庄镇">南庄镇</option>
+    </select>
+  </div>
+  <div class="item">
+    <label>高校(全称) <span class="red">*</span></label>
+    <input type="text" id="school" placeholder="请输入高校全称">
+  </div>
+  <div class="item">
+    <label>专业 <span class="red">*</span></label>
+    <input type="text" id="major" placeholder="请输入专业名称">
+  </div>
+  <div class="item">
+    <label>学历 <span class="red">*</span></label>
+    <select id="education">
+      <option value="">请选择</option>
+      <option value="大专">大专</option>
+      <option value="本科">本科</option>
+      <option value="研究生">研究生</option>
+    </select>
+  </div>
+  <div class="item">
+    <label>学制（年） <span class="red">*</span></label>
+    <input type="text" id="studyYear" placeholder="请输入学制年限">
+  </div>
+  <div class="item">
+    <label>本学年学费 <span class="red">*</span></label>
+    <input type="text" id="tuition" placeholder="请输入本学年学费">
+  </div>
+  <div class="item">
+    <label>申请贷款金额 <span class="red">*</span></label>
+    <input type="text" id="loanAmount" placeholder="本科上限20000，研究生上限25000">
+  </div>
+  <div class="item">
+    <label>学生家庭经济困难情况 <span class="red">*</span></label>
+    <select id="familyStatus">
+      <option value="">请选择</option>
+      <option value="脱贫不稳定家庭">脱贫不稳定家庭</option>
+      <option value="边缘易致贫家庭">边缘易致贫家庭</option>
+      <option value="学费、住宿费在9501元以上">学费、住宿费在9501元以上</option>
+    </select>
+  </div>
+  <div class="item">
+    <label>共同借款人姓名 <span class="red">*</span></label>
+    <input type="text" id="guaranteeName" placeholder="请输入共同借款人姓名">
+  </div>
+  <div class="item">
+    <label>与借款学生关系 <span class="red">*</span></label>
+    <select id="relation">
+      <option value="">请选择</option>
+      <option value="父亲">父亲</option>
+      <option value="母亲">母亲</option>
+      <option value="其他">其他</option>
+    </select>
+  </div>
+  <div class="item">
+    <label>共同借款人年龄 <span class="red">*</span></label>
+    <input type="text" id="guaranteeAge" placeholder="请输入年龄">
+  </div>
+  <div class="item">
+    <label>共同借款人手机号 <span class="red">*</span></label>
+    <input type="tel" id="guaranteePhone" placeholder="请输入11位手机号">
+  </div>
+  <div class="item">
+    <label>现场办理项目 <span class="red">*</span></label>
+    <select id="handleType">
+      <option value="">请选择</option>
+      <option value="首贷(学生本人与共同借款人均须到现场办理)">首贷(学生本人与共同借款人均须到现场办理)</option>
+      <option value="续贷">续贷</option>
+    </select>
+  </div>
+  <div class="item">
+    <label>现场预约办理日期 <span class="red">*</span></label>
+    <div class="date-picker">
+      <input type="text" id="bookDate" class="date-input" readonly placeholder="请选择预约日期">
+      <div class="date-overlay" id="dateOverlay"></div>
+      <div id="datePanel" class="date-panel">
+        <div class="date-header">
+          <button id="prevBtn">&lt;</button>
+          <span id="currentMonth"></span>
+          <button id="nextBtn">&gt;</button>
+        </div>
+        <div class="date-weekdays">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+        <div id="daysContainer" class="date-days"></div>
+      </div>
+    </div>
+    <div class="err-tip">仅2026-07-01至2026-09-15工作日可预约</div>
+  </div>
+  <div class="item">
+    <label>预约办理时段 <span class="red">*</span></label>
+    <select id="bookTime">
+      <option value="">请先选择日期</option>
+    </select>
+    <div id="timeErr" class="err-tip"></div>
+  </div>
+  <button class="btn" onclick="submitForm()">提交预约登记</button>
+</div>
+<div class="result-page" id="resultPage">
+  <h2>2026年禅城区生源地信用助学贷款</h2>
+  <div class="table-wrap" id="resultTable"></div>
+  <div class="tip-text">自行截图保存</div>
+  <div style="text-align:center;">
+    <button class="btn-confirm" onclick="goToFinal()">确定</button>
+  </div>
+</div>
+<div class="final-page" id="finalPage">
+  <div class="final-title">请勿重复预约</div>
+  <button class="btn-close" onclick="closePage()">预约完成</button>
+  <button class="btn-restart" onclick="backToForm()">其他学生预约</button>
+</div>
+<script>
+// 仅新增：云开发初始化 两行
+const app = cloudbase.init({env:"yuyue-system-d9g07g9ere49efe78"});
+const db = app.database();
+
+const MIN_DATE=new Date("2026-07-01");
+const MAX_DATE=new Date("2026-09-15");
+const timeConfig={
+  "9:00-10:30":3,"10:30-11:30":2,"14:30-16:00":3,"16:00-17:00":2
+};
+const dateInput=document.getElementById("bookDate");
+const datePanel=document.getElementById("datePanel");
+const dateOverlay=document.getElementById("dateOverlay");
+const prevBtn=document.getElementById("prevBtn");
+const nextBtn=document.getElementById("nextBtn");
+const currentMonthEl=document.getElementById("currentMonth");
+const daysContainer=document.getElementById("daysContainer");
+let viewDate=new Date(MIN_DATE.getFullYear(),MIN_DATE.getMonth(),1);
+// 打开弹窗
+dateInput.addEventListener("click",e=>{
+  e.stopPropagation();
+  dateOverlay.style.display="block";
+  datePanel.style.display="block";
+  renderCalendar();
+});
+// 点击遮罩关闭
+dateOverlay.addEventListener("click",()=>{
+  dateOverlay.style.display="none";
+  datePanel.style.display="none";
+});
+// 翻页
+prevBtn.addEventListener("click",()=>{
+  viewDate.setMonth(viewDate.getMonth()-1);
+  renderCalendar();
+});
+nextBtn.addEventListener("click",()=>{
+  viewDate.setMonth(viewDate.getMonth()+1);
+  renderCalendar();
+});
+function renderCalendar(){
+  const y=viewDate.getFullYear();
+  const m=viewDate.getMonth();
+  currentMonthEl.innerText=`${y}年${m+1}月`;
+  daysContainer.innerHTML="";
+  const firstDay=new Date(y,m,1);
+  const startWeekday=firstDay.getDay()||7;
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  // 前面空格里
+  for(let i=1;i<startWeekday;i++){
+    daysContainer.appendChild(document.createElement("div"));
+  }
+  // 日期格子
+  for(let d=1;d<=daysInMonth;d++){
+    const date=new Date(y,m,d);
+    const dateStr=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const week=date.getDay();
+    const isWeekend=(week===0||week===6);
+    const isOutOfRange=(date<MIN_DATE||date>MAX_DATE);
+    const el=document.createElement("div");
+    el.className="date-day";
+    el.innerText=d;
+    el.dataset.date=dateStr;
+    // 修复：7月1日是周三，不应灰
+    if(isWeekend||isOutOfRange){
+      el.classList.add("disabled");
+    }else{
+      el.onclick=()=>{
+        dateInput.value=dateStr;
+        dateOverlay.style.display="none";
+        datePanel.style.display="none";
+        triggerDateChange();
+      };
+    }
+    daysContainer.appendChild(el);
+  }
+}
+// 从云端获取时段名额
+async function getBookNumCloud(dateStr){
+  const res = await db.collection("bookNum").where({bookDate:dateStr}).get();
+  let obj = {};
+  res.data.forEach(item=>{
+    obj[item.bookTime] = item.count;
+  });
+  return obj;
+}
+// 更新云端时段名额
+async function saveBookNumCloud(dateStr, timeStr, count){
+  await db.collection("bookNum").where({bookDate:dateStr,bookTime:timeStr}).remove();
+  if(count>0){
+    await db.collection("bookNum").add({bookDate:dateStr,bookTime:timeStr,count:count});
+  }
+}
+// 读取所有列表
+async function getFormListCloud(){
+  const res = await db.collection("formList").orderBy("fullSubmitTime","desc").get();
+  return res.data;
+}
+// 新增一条记录到云端
+async function addFormListCloud(data){
+  await db.collection("formList").add(data);
+}
+
+async function triggerDateChange(){
+  const val=dateInput.value;
+  const s=document.getElementById('bookTime');
+  s.innerHTML='<option value="">请选择时段</option>';
+  if(!val)return;
+  let dayData=await getBookNumCloud(val);
+  for(let t in timeConfig){
+    let opt=document.createElement('option');
+    opt.value=t;
+    opt.innerText=t;
+    if((dayData[t]||0)>=timeConfig[t])opt.disabled=true;
+    s.appendChild(opt);
+  }
+}
+function getFullSubmitTime(){
+  let now=new Date();
+  let y=now.getFullYear(),m=String(now.getMonth()+1).padStart(2,'0'),d=String(now.getDate()).padStart(2,'0');
+  let h=String(now.getHours()).padStart(2,'0'),mi=String(now.getMinutes()).padStart(2,'0');
+  return `${y}-${m}-${d} ${h}:${mi}`;
+}
+async function submitForm(){
+  let data={
+    stuName:document.getElementById('stuName').value.trim(),
+    stuIdCard:document.getElementById('stuIdCard').value.trim(),
+    stuPhone:document.getElementById('stuPhone').value.trim(),
+    area:document.getElementById('area').value,
+    street:document.getElementById('street').value,
+    school:document.getElementById('school').value.trim(),
+    major:document.getElementById('major').value.trim(),
+    education:document.getElementById('education').value,
+    studyYear:document.getElementById('studyYear').value.trim(),
+    tuition:document.getElementById('tuition').value.trim(),
+    loanAmount:document.getElementById('loanAmount').value.trim(),
+    familyStatus:document.getElementById('familyStatus').value,
+    guaranteeName:document.getElementById('guaranteeName').value.trim(),
+    relation:document.getElementById('relation').value,
+    guaranteeAge:document.getElementById('guaranteeAge').value.trim(),
+    guaranteePhone:document.getElementById('guaranteePhone').value.trim(),
+    handleType:document.getElementById('handleType').value,
+    bookDate:document.getElementById('bookDate').value,
+    bookTime:document.getElementById('bookTime').value,
+    fullSubmitTime:getFullSubmitTime()
+  };
+  if(!data.stuName){alert('请输入借款学生姓名');return;}
+  if(!/^\d{17}[\dXx]$/.test(data.stuIdCard)){alert('请输入正确18位身份证号');return;}
+  if(!/^1\d{10}$/.test(data.stuPhone)){alert('请输入正确手机号');return;}
+  if(!data.area){alert('请选择户籍（区）');return;}
+  if(!data.street){alert('请选择户籍（镇/街道）');return;}
+  if(!data.school){alert('请输入高校全称');return;}
+  if(!data.major){alert('请输入专业');return;}
+  if(!data.education){alert('请选择学历');return;}
+  if(!data.studyYear){alert('请输入学制年限');return;}
+  if(!data.tuition){alert('请输入本学年学费');return;}
+  if(!data.loanAmount){alert('请输入申请贷款金额');return;}
+  if(!data.familyStatus){alert('请选择家庭经济困难情况');return;}
+  if(!data.guaranteeName){alert('请输入共同借款人姓名');return;}
+  if(!data.relation){alert('请选择与学生关系');return;}
+  if(!data.guaranteeAge){alert('请输入共同借款人年龄');return;}
+  if(!/^1\d{10}$/.test(data.guaranteePhone)){alert('请输入共同借款人正确手机号');return;}
+  if(!data.bookDate){alert('请选择预约日期');return;}
+  if(!data.bookTime){alert('请选择预约时段');return;}
+
+  // 云端校验名额
+  let bn=await getBookNumCloud(data.bookDate);
+  if(!bn[data.bookDate])bn[data.bookDate]={};
+  if(!bn[data.bookDate][data.bookTime])bn[data.bookDate][data.bookTime]=0;
+  if(bn[data.bookDate][data.bookTime]>=timeConfig[data.bookTime]){alert('该时段已约满');return;}
+  bn[data.bookDate][data.bookTime]++;
+  await saveBookNumCloud(data.bookDate, data.bookTime, bn[data.bookDate][data.bookTime]);
+
+  // 保存表单到云端
+  await addFormListCloud(data);
+  showResult(data);
+}
+function showResult(data){
+  document.getElementById('formPage').style.display='none';
+  document.getElementById('resultPage').style.display='none';
+  document.getElementById('resultPage').style.display='block';
+  document.getElementById('finalPage').style.display='none';
+  let rows=[
+    {l:"提交日期：",r:data.fullSubmitTime},
+    {l:"借款学生姓名：",r:data.stuName},
+    {l:"身份证号：",r:data.stuIdCard},
+    {l:"手机号：",r:data.stuPhone},
+    {l:"户籍(区)：",r:data.area},
+    {l:"户籍(镇/街道)：",r:data.street},
+    {l:"高校(全称)：",r:data.school},
+    {l:"专业：",r:data.major},
+    {l:"学历：",r:data.education},
+    {l:"学制(年)：",r:data.studyYear},
+    {l:"本学年学费：",r:data.tuition},
+    {l:"申请贷款金额：",r:data.loanAmount},
+    {l:"学生家庭经济困难情况：",r:data.familyStatus},
+    {l:"共同借款人姓名：",r:data.guaranteeName},
+    {l:"与借款学生关系：",r:data.relation},
+    {l:"共同借款人年龄：",r:data.guaranteeAge},
+    {l:"共同借款人手机号：",r:data.guaranteePhone},
+    {l:"现场办理项目：",r:data.handleType},
+    {l:"预约日期时段：",r:data.bookDate+" "+data.bookTime}
+  ];
+  let html="";
+  rows.forEach(i=>{
+    html+=`<div class="table-row">
+      <div class="cell-l">${i.l}</div>
+      <div class="cell-r">${i.r}</div>
+    </div>`;
+  });
+  document.getElementById('resultTable').innerHTML=html;
+}
+function goToFinal(){
+  document.getElementById('resultPage').style.display='none';
+  document.getElementById('finalPage').style.display='block';
+}
+function closePage(){
+  window.close();
+}
+function backToForm(){
+  location.reload();
+}
+</script>
+</body>
+</html>
